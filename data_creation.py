@@ -1,0 +1,188 @@
+import pandas as pd
+from IPython.display import display
+
+file_1_path = 'D:/Projects/RAG_pdf/app.py'
+
+
+with open(file_1_path, 'r') as file:
+    app_py_content = file.read()
+
+
+
+data = {
+    'Query': [
+        "What does the policy cover if my car is damaged?",
+        "Who can drive my car under this policy?",
+        "What should I do if I leave my car unlocked and it gets stolen?",
+        "Are mechanical failures covered?",
+        "Can I drive my car abroad?",
+        "How do I make a claim?",
+        "What is DriveSure?",
+        "Are my charging cables for my electric car covered?",
+        "Is the car battery covered?",
+        "What is the definition of 'Accessories'?",
+        "What should I do if I have an accident?",
+        "What is the excess I need to pay?",
+        "What happens if my car is written off?",
+        "What does 'Approved repairer' mean?",
+        "What is the contact number for windscreen claims?",
+        "Can I choose my own repairer?",
+        "How long is the repair guarantee from an approved repairer?",
+        "What is covered under Section 1: Liability?",
+        "What is the market value?",
+        "Who is the NCD owner?",
+        "What is covered under Section 4: Accidental damage?",
+        "What does 'Track day' mean?",
+        "What is the number for the Motor legal helpline?",
+        "What is meant by 'Loss of any limb'?",
+        "What is the territorial limit?",
+        "What is considered vandalism?",
+        "What should I do if I receive a notice or form from a court?",
+        "What is considered a 'Convertible'?",
+        "Who should I contact if there is a problem with repairs?",
+        "What is covered under Section 2: Fire and theft?",
+        "Are modifications covered by the policy?",
+        "How does the No Claim Discount (NCD) work?",
+        "What is the 'New car replacement' benefit?",
+        "Are my personal belongings covered?",
+        "What does 'Total loss' mean?",
+        "What are the payment options for the premium?",
+        "What is an 'Excess'?",
+        "What is covered under 'Personal Accident'?",
+        "What is the 'Courtesy car' benefit?",
+        "Are child car seats covered?",
+        "How do I report a claim?",
+        "What are 'Glass repairs and replacements'?",
+        "What is 'Third party only' cover?",
+        "What is 'Third party, fire, and theft' cover?",
+        "What is 'Comprehensive' cover?",
+        "What is the 'Uninsured driver promise'?",
+        "What is the '24-hour emergency helpline' number?",
+        "What are the 'Additional cover options'?",
+        "What is covered under 'European cover'?",
+        "Are 'Medical expenses' covered?",
+        "What is 'Breakdown cover'?"
+    ],
+    'Response': [
+        "We’ll pay the cost of repairing or replacing your car up to its UK market value if the damage is covered.",
+        "The certificate of motor insurance will show who has cover to drive other cars, but it only covers third-party injury or damage.",
+        "A claim for theft or attempted theft will not be paid if the car is left unlocked or with keys in, on, or attached to the car.",
+        "Mechanical or electrical failure is not covered by the policy.",
+        "You may be covered to drive abroad depending on your policy and the country you're driving in.",
+        "You need to provide personal details, policy number, car registration number, and a description of the loss or damage.",
+        "DriveSure is a telematics insurance product that monitors driving to adjust premiums based on driving behavior.",
+        "Charging cables are covered under 'Section 2: Fire and theft' or 'Section 4: Accidental damage'.",
+        "The battery is covered if it’s damaged as a result of an insured incident, whether it's owned or leased.",
+        "Accessories are parts or products designed to be fitted to your car, including charging cables and home chargers.",
+        "You should inform the insurance company immediately and provide the necessary details for the claim.",
+        "The excess amount you need to pay can be found in your car insurance details.",
+        "If your car is written off, the insurance company will settle the claim based on the market value of the car.",
+        "An approved repairer is a repairer in our network of contracted repairers approved to carry out repairs following a claim.",
+        "The contact number for windscreen claims is 0800 328 9150.",
+        "You can choose your own repairer, but you must get the repair estimate approved by the insurance company.",
+        "The repair guarantee from an approved repairer is five years.",
+        "Section 1: Liability covers injury to third parties or damage to their property when driving other cars.",
+        "Market value is the cost of replacing your car with another of the same make, model, age, mileage, and condition.",
+        "The NCD owner is the person who has earned the No Claim Discount on the policy.",
+        "Section 4: Accidental damage covers damage to your car from accidental causes.",
+        "A 'Track day' is when your car is driven on a racing track, airfield, or at an off-road event.",
+        "The contact number for the Motor legal helpline is 0345 246 2408.",
+        "Loss of any limb is defined as a limb severed at or above the wrist or ankle, or total loss of use of a hand, arm, foot, or leg.",
+        "The territorial limits are Great Britain, Northern Ireland, the Channel Islands, and the Isle of Man.",
+        "Vandalism is damage caused by a malicious and deliberate act.",
+        "Contact the insurance company immediately if you receive any legal documents.",
+        "A 'Convertible' is a motor car with a removable or retractable roof.",
+        "If there is a problem with repairs, contact the repairer first. If unresolved, contact the insurance company.",
+        "Section 2: Fire and theft covers loss or damage to your car caused by fire, theft, or attempted theft.",
+        "Modifications are covered if they are declared and accepted by the insurer.",
+        "The No Claim Discount (NCD) reduces the premium based on the number of claim-free years.",
+        "New car replacement is offered if your car is less than a year old and is written off.",
+        "Personal belongings in the car are covered up to a specified limit.",
+        "Total loss means the car is considered uneconomical to repair.",
+        "Premiums can be paid annually or in monthly installments.",
+        "An excess is the amount you need to pay towards a claim.",
+        "Personal Accident covers injuries sustained by the policyholder or named drivers.",
+        "A courtesy car is provided while your car is being repaired after an insured event.",
+        "Child car seats are covered if damaged in an accident.",
+        "Report a claim by contacting the insurance company through their claims helpline.",
+        "Glass repairs and replacements cover damage to your car's windows and windscreen.",
+        "Third party only cover provides cover for injury to others and damage to their property.",
+        "Third party, fire, and theft cover includes third party cover plus cover for your car against fire and theft.",
+        "Comprehensive cover includes all benefits of third party, fire, and theft plus cover for accidental damage to your car.",
+        "The uninsured driver promise protects your NCD if an uninsured driver damages your car.",
+        "The 24-hour emergency helpline number is available in your policy documents.",
+        "Additional cover options may include breakdown cover, key cover, and more.",
+        "European cover provides protection while driving in European countries.",
+        "Medical expenses cover medical costs if you or your passengers are injured in an accident.",
+        "Breakdown cover provides assistance if your car breaks down."
+    ],
+    'Answer_from_model': [
+        "The policy covers the cost of repairing or replacing your car up to its UK market value if your car is damaged. The UK market value is the current value of your car at the time of the claim. This may be different from the amount you paid or any amount you provided when you insured your car. However, the policy does not cover things like mechanical or electrical failure and wear and tear.",
+        "Anyone insured by this policy to drive your car, if they have the policyholder’s permission. The main driver may also be covered for liability to others when driving another car, as long as they aren't covered by another insurance policy, they don't own the other car, and it isn't hired to them under a hire-purchase or leasing agreement. The car they are driving cannot be a hire, rental or courtesy car, unless it has been provided or arranged by the insurance company. The owner of the car they’re driving must also give their permission.",
+        "The context does not provide specific steps on what to do if you leave your car unlocked and it gets stolen. However, it does mention that the insurance will not cover the loss or damage to your car if it was left unattended and unlocked.",
+        "Mechanical failures are not covered.",
+        "Yes, you can drive your car abroad, but your cover depends on the type of policy you have and where you're driving. If you do not have Foreign Use Extension, or if it has been used up, your car insurance only gives you the minimum car insurance required by law for the countries listed in the policy. This includes any country which is a member of the European Union and any country listed that the Commission of the European Community approves as meeting the requirements of Article 8 of EC Directive 2009/103/EC on Insurance of Civil Liabilities arising from using cars. You’ll need to pay extra to add this and get in touch before your trip starts. You may also need a Green Card if you’re travelling abroad.",
+        "To make a claim, you need to provide the following information: Your personal details Your policy number Your car registration number A description of the loss or damage If you've been in an accident, the other driver's details You should have these details handy when you get in touch. If you receive any communication such as any notice or form from a court, any threat of legal action or similar, you must contact the company straight away. They will deal with it or tell you what you need to do. You must also give them any other relevant information, documents or help they might need to process your claim, and pay any charges for sending such information. If you're unsure if a document is relevant, you should give it to them anyway. You must not do, or refrain from doing, anything that would increase the amount of the claim without their written permission. For example, admit liability for, or negotiate to settle, any claim. The numbers you need to call to make a claim are: General claims: 0345 878 6261 Windscreen claims: 0800 328 9150 Motor legal helpline (if you have Motor Legal Cover): 0345 246 2408 Help with anything else: 0345 877 6680 You should store these numbers in your phone so you have them available if needed. Even if you don’t make a claim on your car, it’s important to let them know about the accident as quickly as possible. This will enable them to contact the other party and resolve the entire claim, giving you the best service and keep the costs down.",
+        "DriveSure is a telematics insurance product. It is designed to capture how, when and where your car is driven, based on driver-monitoring technology. It is used to understand your driving style and give you feedback. This information is then used to base your premium on your driving record.",
+        "Yes, your home charger and charging cables for your electric car are considered an accessory to your car. They are covered under ‘Section 2: Fire and theft’ or ‘Section 4: Accidental damage’ of your policy. You’re also covered for any accidents to others involving your charging cables when they are attached to your car. For example, if someone trips over your cable, as long as you have taken due care to prevent such an accident.",
+        "The car battery is covered if it’s damaged as a result of an insured incident, regardless of whether it's owned or leased.",
+        "Accessories include parts or products designed to be fitted to your car, such as charging cables and home chargers.",
+        "In case of an accident, inform the insurance company immediately and provide the necessary details for the claim.",
+        "The excess amount you need to pay can be found in your car insurance policy details.",
+        "If your car is written off, the insurance company will settle the claim based on the market value of your car.",
+        "An approved repairer is part of the insurance company's network of contracted repairers approved for claims-related repairs.",
+        "The contact number for windscreen claims is 0800 328 9150.",
+        "You can choose your own repairer, but their repair estimate must be approved by the insurance company.",
+        "The repair guarantee from an approved repairer is five years.",
+        "Section 1: Liability covers injury to third parties or damage to their property while driving other cars.",
+        "Market value is the cost of replacing your car with another of the same make, model, age, mileage, and condition.",
+        "The NCD owner is the person who has earned the No Claim Discount on the policy.",
+        "Section 4: Accidental damage covers damage to your car from accidental causes.",
+        "A 'Track day' refers to driving your car on a racing track, airfield, or at an off-road event.",
+        "The contact number for the Motor legal helpline is 0345 246 2408.",
+        "Loss of any limb means a limb severed at or above the wrist or ankle, or total loss of use of a hand, arm, foot, or leg.",
+        "The territorial limits are Great Britain, Northern Ireland, the Channel Islands, and the Isle of Man.",
+        "Vandalism refers to damage caused by a malicious and deliberate act.",
+        "If you receive any legal documents, contact the insurance company immediately.",
+        "A 'Convertible' is a motor car with a removable or retractable roof.",
+        "If there is a problem with repairs, contact the repairer first. If unresolved, contact the insurance company.",
+        "Section 2: Fire and theft covers loss or damage to your car caused by fire, theft, or attempted theft.",
+        "Modifications are covered if they are declared and accepted by the insurer.",
+        "The No Claim Discount (NCD) reduces the premium based on the number of claim-free years.",
+        "New car replacement is provided if your car is less than a year old and is written off.",
+        "Personal belongings in the car are covered up to a specified limit.",
+        "Total loss means the car is considered uneconomical to repair.",
+        "Premiums can be paid annually or in monthly installments.",
+        "An excess is the amount you need to pay towards a claim.",
+        "Personal Accident covers injuries sustained by the policyholder or named drivers.",
+        "A courtesy car is provided while your car is being repaired after an insured event.",
+        "Child car seats are covered if damaged in an accident.",
+        "To report a claim, contact the insurance company through their claims helpline.",
+        "Glass repairs and replacements cover damage to your car's windows and windscreen.",
+        "Third party only cover provides cover for injury to others and damage to their property.",
+        "Third party, fire, and theft cover includes third party cover plus cover for your car against fire and theft.",
+        "Comprehensive cover includes all benefits of third party, fire, and theft plus cover for accidental damage to your car.",
+        "The uninsured driver promise protects your NCD if an uninsured driver damages your car.",
+        "The 24-hour emergency helpline number is available in your policy documents.",
+        "Additional cover options may include breakdown cover, key cover, and more.",
+        "European cover provides protection while driving in European countries.",
+        "Medical expenses cover medical costs if you or your passengers are injured in an accident.",
+        "Breakdown cover provides assistance if your car breaks down."
+    ]
+}
+
+df = pd.DataFrame(data)
+
+display(df)
+
+
+csv_file_path = 'Evaluation_dataset.csv'
+df.to_csv(csv_file_path, index=False)
+csv_file_path
+
+import IPython.display as ipd
+
+ipd.FileLink(csv_file_path)
+
+
+
